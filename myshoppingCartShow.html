@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        border-style: solid;
+        background-color: blanchedalmond;
+        padding: 0;
+        margin: 0;
+    }
+    section, nav, div, aside {
+        display: flex;
+        align-content: stretch;
+    }
+    #mainShowBookArea{
+        /* display: block; */
+        flex-wrap: wrap;
+        align-content: stretch;
+    }
+    .books{
+        width: 20%;
+    }
+    .books img{
+        max-width: 100%;
+        display: block;
+    }
+</style>
+<body>
+    <section style="flex-direction: column; width: 99vw;">
+        <nav style="height: 100px; justify-content: center; flex-direction: column;">
+            <form action="post" style="align-self: center;">
+                <input type="text" placeholder="Keyword(s)" style="float: left; width: 70vw;">
+                <input type="submit" name="searching" id="searching" value="Search">
+            </form>
+            <div class="loginOptions" style="flex-direction: row; justify-content: flex-end;">
+                <div id="loginCheckArea">
+                    
+                </div>
+                <form action="myshoppingCartShow.html"><button type="submit">Cart</button></form>
+                <!-- <button type="button"> Sign in</button>
+                <button type="button"> Register </button>
+                <button type="button"> Cart</button> -->
+            </div>
+        </nav>
+        <div class="inner" style="flex-direction: row; height: min-content;">
+            <div id="mainShowBookWrapper" style="display: block; width: 100vw;">
+                <h3> My Shopping Cart </h3>
+                <div id="insideShoppingCart" style="display: block;">
+                    <!-- <button type="button"> Sign in</button> -->
+                </div>
+                <!-- testing -->
+                <button onclick="testing()">testing</button>
+            </div>
+        </div>
+        <div id="totalPrice"></div>
+    </section>
+    <form action="main.html" style="float: left;"><button type="submit">Back</button></form>
+    <form name="checkoutForm" action="checkoutPage.php" method="post" style="float: left;">
+        <input type="submit" id="checkoutbutt" name="checkoutbutt" value="Checkout">
+    </form>
+        
+    <script>
+        function printTotalCost(){
+            var xmlhttp2 = new XMLHttpRequest();   
+            xmlhttp2.onreadystatechange = function () {
+                if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+                    var totalPrice = document.getElementById("totalPrice");
+                    totalPrice.innerHTML = xmlhttp2.responseText;
+                }
+            }
+            xmlhttp2.open("POST", "showSectionCart.php", true);
+            xmlhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp2.send("action=getcost");
+        }
+        // credit: https://stackoverflow.com/questions/3387427/remove-element-by-id
+        function removeElement(id) {
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+        }
+
+        function testing(){
+            // show session array
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log('testing: ',xmlhttp.responseText);
+                }
+            }
+            xmlhttp.open("POST", "showSectionCart.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=testing");
+            // see the response msg after deleting
+            var xmlhttp2 = new XMLHttpRequest();   
+            xmlhttp2.onreadystatechange = function () {
+                if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+                    console.log('what even is this bug: ',xmlhttp2.responseText);
+                }
+            }
+            xmlhttp2.open("POST", "showSectionCart.php", true);
+            xmlhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp2.send("showCart=all");
+        }
+        function deleteItem(DesiredCartID){
+            var DeleteCartID = "DesiredCartID-"+DesiredCartID;
+            console.log('DeleteCartID = ',DeleteCartID);
+            removeElement(DeleteCartID);
+            // remove the cart from session
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log('this is a return msg from delete: ',xmlhttp.responseText);
+                    console.log('update the cost now');
+                    printTotalCost();
+                    console.log('returned the cost now');
+                }
+            }
+            xmlhttp.open("POST", "showSectionCart.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=delete&deleteid="+DesiredCartID);
+            // update the price
+            printTotalCost();
+            showAllCarts();
+        }
+        function showAllCarts(){
+            var xmlhttp = new XMLHttpRequest();   
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var insideShoppingCart = document.getElementById("insideShoppingCart");
+                    insideShoppingCart.innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("POST", "showSectionCart.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("showCart=all");
+        }
+        function checkLogin(){
+            // check login status
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var loginCheckArea = document.getElementById("loginCheckArea");
+                    console.log(xmlhttp.responseText);
+                    loginCheckArea.innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("POST", "checkLoginStatus.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=checklogin");
+        }
+        
+        window.onload = function() {
+            checkLogin();
+            showAllCarts();
+            printTotalCost();
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Document</title>
+    <script src="main.js"></script>
+</head>
+<body>
+    <h1>Create Account NOW</h1>
+    <form name="createForm" action="create.php" method="post" onsubmit="return validateCForm()">
+        <label for="cname">Username</label>
+        <input type="text" id="cname" name="cname" placeholder="Desired Username">
+        <br>
+        <label for="cpassword">Password</label>
+        <input type="password" id="cpassword" name="cpassword" placeholder="Desired Password">
+        <br>
+        <input type="submit" id="csubmit" name="csubmit" value="SUBMIT">
+    </form>
+    <form action="index.html">
+        <input type="submit" id="csubmit" value="BACK" />
+    </form>
+</body>
+</html>
