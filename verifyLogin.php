@@ -20,15 +20,37 @@ $fname = '';
 $fpassword = '';
 if (isset($_POST['fsubmit'])){
     if (authenticate()) {
-        
+        $CartIdLists = array();
         // remove temp carts given to session if any
         if ($_SESSION['cartID'] && $_SESSION['cartID']!=''){
             $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
             foreach ($_SESSION['cartID'] as $key => $value){
                 $del_val = $value;
                 if (($key = array_search($del_val, $_SESSION['cartID'])) !== false) {
+                    // unset it in session array
                     unset($_SESSION['cartID'][$key]);
-                    // also remove it from database
+                    
+                    // search for attributes in the cart of informal
+                    $query = "SELECT * FROM cartNotLoggedIn WHERE CartId='".$del_val."'";
+                    $result = mysqli_query($conn, $query);
+                    $row = mysqli_fetch_array($result);
+                    $bookidsubmit = $row['BookId'];
+                    $ordernum = $row['Quantity'];
+                    mysqli_free_result($result);
+
+                    $username = $_POST['fname'];
+                    // add it to the formal cart
+                    $query="INSERT INTO cart (BookId, UserId, Quantity) VALUES ('$bookidsubmit', '$username' , '$ordernum')";
+                    mysqli_query($conn, $query);
+
+                    // get the corresponding id in formal cart
+                    $query = "SELECT * FROM cart WHERE CartId=(SELECT max(CartId) FROM cart)";
+                    $result = mysqli_query($conn, $query);
+                    $row = mysqli_fetch_array($result);
+                    array_push($CartIdLists, $row['CartId']);
+                    mysqli_free_result($result);
+
+                    // then remove it from informal cart database
                     $query = "DELETE FROM cartNotLoggedIn WHERE CartId='".$del_val."'";
                     if (!mysqli_query($conn, $query)) {
                         header("location: createAC.html");
@@ -36,6 +58,10 @@ if (isset($_POST['fsubmit'])){
                 }
             }
             mysqli_close($conn); 
+        }
+        // assign new formal cart numbers to session variable
+        foreach($CartIdLists as $value){
+            array_push($_SESSION['cartID'], $value);
         }
         
         // save the result to session

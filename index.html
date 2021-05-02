@@ -36,10 +36,8 @@
     <!-- the login page template -->
     <section id="navbarOFMINE">
         <nav style="height: 100px; justify-content: center; flex-direction: column;">
-            <form action="post" style="align-self: center;">
-                <input type="text" placeholder="Keyword(s)" style="float: left; width: 70vw;">
-                <input type="submit" name="searching" id="searching" value="Search">
-            </form>
+            <input type="text" id='kw' placeholder="Keyword(s)" style="float: left; width: 70vw;">
+            <input type="submit" name="searching" id="searching" value="Search" onclick="searchResults()">
             <div class="loginOptions" style="flex-direction: row; justify-content: flex-end;">
                 <div id="loginCheckArea">
                     
@@ -87,8 +85,8 @@
                     <a onclick="filter('History')">History</a>
                 </aside>
                 <div id="mainShowBookWrapper" style="display: block; width: 100vw;">
-                    <h3>All Books</h3>
-                    <a href="index.html" style="float: right; clear: right;">sort by price</a>
+                    <h3 id="allbookstag">All Books</h3>
+                    <a onclick="sortByPrice()" style="float: right; clear: right;">sort by price</a>
                     <div id="mainShowBookArea" style="clear: right">
                         <!-- many books yeah -->
                     </div>
@@ -249,8 +247,9 @@
             xmlhttp.send("action=specific&bookid="+bookId);
         }
         function filter(type){
+            var allbookstag = document.getElementById("allbookstag");
+            allbookstag.innerHTML = 'All '+type;
             var xmlhttp = new XMLHttpRequest();
-                
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 var mainShowBookArea = document.getElementById("mainShowBookArea");
@@ -260,6 +259,41 @@
             xmlhttp.open("POST", "showbook.php", true);
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlhttp.send("show=filter&type="+type);
+        }
+        function sortByPrice(){
+            var allbookstag = document.getElementById("allbookstag");
+            allbookstag.innerHTML = 'All Books (Sort by Price Highest)';
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var mainShowBookArea = document.getElementById("mainShowBookArea");
+                mainShowBookArea.innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("POST", "showbook.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("show=sortPrice");
+        }
+        function searchResults(){
+            var kw = document.getElementById("kw");
+            words = kw.value;
+            var kwcleaned = words.replace(/\s/g, '-');
+            kw.value = '';
+            console.log(kwcleaned);
+            var allbookstag = document.getElementById("allbookstag");
+            allbookstag.innerHTML = 'Searching Results';
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var mainShowBookArea = document.getElementById("mainShowBookArea");
+                    mainShowBookArea.innerHTML = xmlhttp.responseText;
+                    console.log(xmlhttp.responseText);
+                }
+            }
+            xmlhttp.open("POST", "showbook.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("show=searching&keyword="+kwcleaned);
+            displayController(2);
         }
         function showAll() {
             var xmlhttp = new XMLHttpRequest();
@@ -305,8 +339,22 @@
         window.onload = function() {
             initVars();
             showAllCarts();
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const login = urlParams.get('login');
+            const cart = urlParams.get('cart');
+
             console.log('fired');
-            displayController(2); //show only the login page
+            if (login){
+                displayController(1); //show login page
+            }
+            else if (cart){
+                displayController(4); //show login page
+            }
+            else{
+                displayController(2); //show main page
+            }
             checkLogin();
             showAll();
         }

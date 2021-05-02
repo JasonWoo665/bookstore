@@ -20,17 +20,17 @@
     <section>
         <!-- special handler in create.php is needed -->
         <?php
-            if (!$_SESSION['UserId'] || $_SESSION['UserId']=''){
+            if (!$_SESSION['UserId'] || $_SESSION['UserId']==''){
                 echo "<form name='ADCForm' action='invoicePage.php' method='post' onsubmit='return validateFCForm()'>";
             }else{
-                echo  "<form name='ADCForm' action='invoicePage.php' method='post onsubmit='return validateFCFormLGED()''>";
+                echo  "<form name='ADCForm' action='invoicePage.php' method='post' onsubmit='return validateFCFormLGED()'>";
             }
         ?>
             <?php
                 if (!$_SESSION['UserId']){
                     echo "
                     <h1>I'm a new customer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I'm already a customer</h1>
-                    <p>Please Checkout Below&nbsp;&nbsp;&nbsp;&nbsp;or &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.html'>Sign In </a></p>
+                    <p>Please Checkout Below&nbsp;&nbsp;&nbsp;&nbsp;or &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.html?login=yes'>Sign In </a></p>
                     <h1>Creatae Account: </h1>
                     <label for='fcname'>Username</label>
                     <input type='text' id='fcname' name='fcname' placeholder='Desired Username' onblur='moveoutCheckDuplicate(event)'><span id='redWarningSpan' style='color: red'>Username Duplicated</span>
@@ -67,7 +67,7 @@
             <input type="text" id="postcode" name="postcode" placeholder="Required">
             <br>   
     
-            <p>Your order <a href="myshoppingCartShow.html">(change)</a> </p>
+            <p>Your order <a href="index.html?cart=yes">(change)</a> </p>
             <br> <br>
             <p>Free Standard Shipping</p>
 

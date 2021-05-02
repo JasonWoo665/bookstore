@@ -100,9 +100,21 @@ function validateFCFormLGED() {
 function randomtesting(){
   console.log('testing all fired');
 }
+function testingConLog(){
+  // show session array
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function () {
+      if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          console.log('testing: ',xmlhttp.responseText);
+      }
+  }
+  xmlhttp.open("POST", "showSectionCart.php", true);
+  xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xmlhttp.send("action=testing");
+}
 
 console.log('linked but other not shown');
-showAll();
+// showAll();
 randomtesting();
 window.onload = function() {
   console.log('fired');

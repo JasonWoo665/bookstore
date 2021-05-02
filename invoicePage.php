@@ -74,6 +74,26 @@
                 echo "<span> HK$ ".$Price."</span>"; // quantity
                 echo "<br>";
             }
+            // also remove the data in database cart and user's session info
+            foreach ($_SESSION['cartID'] as $key => $value){
+                $del_val = $value;
+                if (($key = array_search($del_val, $_SESSION['cartID'])) !== false) {
+                    unset($_SESSION['cartID'][$key]);
+                    // also remove it from database
+                    $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+                    if ($_SESSION['UserId'] && $_SESSION['UserId']!=''){
+                        $query = "DELETE FROM cart WHERE CartId='".$del_val."'";
+                    }
+                    else{
+                        $query = "DELETE FROM cartNotLoggedIn WHERE CartId='".$del_val."'";
+                    }
+                    if (mysqli_query($conn, $query)) {
+                        $returnmsg .= $query;
+                    }
+                    mysqli_close($conn);
+                }
+            }            
+
             mysqli_close($conn); 
             echo "<br>";
             echo "<p>Total Price: HK$ ".$sum."</p>";  
