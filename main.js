@@ -48,10 +48,15 @@ function moveoutCheckDuplicate(event){
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function () {
         var redWarningSpan = document.getElementById("redWarningSpan");
+        var fcname = document.getElementById("fcname");
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var success = xmlhttp.responseText;     
             if (success=="NOTsuccess"){
               redWarningSpan.style.visibility = 'visible';
+              console.log('changed');
+              console.log('before:-----',fcname.value);
+              fcname.value='';
+              console.log('after:-----',fcname.value);
             }
             else{
               redWarningSpan.style.visibility = 'hidden';
@@ -101,6 +106,6 @@ showAll();
 randomtesting();
 window.onload = function() {
   console.log('fired');
-  showAll();
+  // showAll();
 }
 // document.getElementById("majBtn").addEventListener('click', filterM);

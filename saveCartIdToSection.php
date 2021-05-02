@@ -46,7 +46,7 @@
         mysqli_free_result($result);
         mysqli_close($conn);
         print var_dump($_SESSION).' with session id='.var_dump(session_id()).'with val '.var_dump($_SESSION['cartID']);
-        header("location: myshoppingCartShow.html");
+        // header("location: myshoppingCartShow.html");
     
 ?>
 

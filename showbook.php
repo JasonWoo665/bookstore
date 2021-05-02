@@ -15,7 +15,7 @@
                 $newArrival = false;
             }
             print "<div id=".$row['BookId']." class='books' style='display: block;'>";
-            print "<a class='bookName' href='bookx.php?action=specific&bookid=".$row['BookId']."'>".$row['BookName']."</a>";
+            print "<a class='bookName' onclick='detailedShown(".$row['BookId'].");displayController(3);'>".$row['BookName']."</a>";
             print"<img src='upload_image/book_".$row['BookId']."' alt='book Image'>";
             if ($newArrival){
                 print "<p class='newArrival'> NEW ARRIVAL! </p>";
@@ -41,7 +41,7 @@
           $newArrival = false;
       }
       print "<div id=".$row['BookId']." class='books' style='display: block;'>";
-      print "<a class='bookName' href='bookx.php?action=specific&bookid=".$row['BookId']."'>".$row['BookName']."</a>";
+      print "<a class='bookName' onclick='detailedShown(".$row['BookId'].");displayController(3);'>".$row['BookName']."</a>";
       print"<img src='upload_image/book_".$row['BookId']."' alt='book Image'>";
       if ($newArrival){
           print "<p class='newArrival'> NEW ARRIVAL! </p>";

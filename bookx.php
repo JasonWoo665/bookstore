@@ -65,7 +65,7 @@
             </nav>
             <div class="inner" style="flex-direction: row; height: min-content;">
                 <div id="mainShowBookWrapper" style="display: block; width: 100vw;">
-                    <a href="main.html">home</a> <span> > </span> <a><?php echo $BookName?></a>
+                    <a href="index.html">home</a> <span> > </span> <a><?php echo $BookName?></a>
                     <h3> <?php echo $BookName ?> </h3>
                     <img src='upload_image/book_<?php echo $id ?>' alt='book Image'>
                     <p>

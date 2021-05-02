@@ -20,7 +20,7 @@ if (isset($_POST['csubmit'])){
             <?php echo 'Account already existed' ?>
         </h1>
         <?php
-        header("refresh:3;url=createAC.html");
+        header("refresh:3;url=index.html");
     }
 }
 else if ($_POST['action'] == 'fastcsubmit'){

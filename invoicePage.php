@@ -79,7 +79,7 @@
             echo "<p>Total Price: HK$ ".$sum."</p>";  
         ?>
         <p style="text-align: center;">Thanks for ordering.  Your books will be delivered within 7 working days.</p>
-        <form name="invoiceForm" action="main.html" method="post" style="display: flex; justify-content: center;">
+        <form name="invoiceForm" action="index.html" method="post" style="display: flex; justify-content: center;">
             <input type="submit" id="ADcsubmit" name="ADcsubmit" value="OK">
         </form>
     </section>

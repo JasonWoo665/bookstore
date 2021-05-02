@@ -4,26 +4,312 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>happy bookstore!</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Document</title>
     <script src="main.js"></script>
 </head>
+<style>
+    * {
+        border-style: solid;
+        background-color: blanchedalmond;
+        padding: 0;
+        margin: 0;
+    }
+    section, nav, div, aside {
+        display: flex;
+        align-content: stretch;
+    }
+    #mainShowBookArea{
+        /* display: block; */
+        flex-wrap: wrap;
+        align-content: stretch;
+    }
+    .books{
+        width: 20%;
+    }
+    .books img{
+        max-width: 100%;
+        display: block;
+    }
+</style>
 <body>
-    <h1>Login NOW</h1>
-    <form name="loginForm" action="verifyLogin.php" method="post" onsubmit="return validateForm()">
-        <label for="fname">Username</label>
-        <input type="text" id="fname" name="fname" placeholder="Username">
-        <br>
-        <label for="fpassword">Password</label>
-        <input type="password" id="fpassword" name="fpassword" placeholder="Password">
-        <br>
-        <input type="submit" id="fsubmit" name="fsubmit" value="SUBMIT">
-    </form>
-    <form action="createAC.html">
-        <input type="submit" id="csubmit" value="CREATE" />
-    </form>    
+    <!-- the login page template -->
+    <section id="navbarOFMINE">
+        <nav style="height: 100px; justify-content: center; flex-direction: column;">
+            <form action="post" style="align-self: center;">
+                <input type="text" placeholder="Keyword(s)" style="float: left; width: 70vw;">
+                <input type="submit" name="searching" id="searching" value="Search">
+            </form>
+            <div class="loginOptions" style="flex-direction: row; justify-content: flex-end;">
+                <div id="loginCheckArea">
+                    
+                </div>
+                <button type="submit" onclick="displayController(4)">Cart</button>
+            </div>
+            <a href="index.html">home</a>
+        </nav>
+    </section>
+    <section id="createACSection">
+        <h1>Create Account NOW</h1>
+        <form name="createForm" action="create.php" method="post" onsubmit="return validateCForm()">
+            <label for="cname">Username</label>
+            <input type="text" id="cname" name="cname" placeholder="Desired Username">
+            <br>
+            <label for="cpassword">Password</label>
+            <input type="password" id="cpassword" name="cpassword" placeholder="Desired Password">
+            <br>
+            <input type="submit" id="csubmit" name="csubmit" value="SUBMIT">
+        </form>
+        <button type="button" onclick="displayController(1)">Back</button>
+    </section>
+    <section id="loginSection">
+        <h1>Login NOW</h1>
+        <form name="loginForm" action="verifyLogin.php" method="post" onsubmit="return validateForm()">
+            <label for="fname">Username</label>
+            <input type="text" id="fname" name="fname" placeholder="Username">
+            <br>
+            <label for="fpassword">Password</label>
+            <input type="password" id="fpassword" name="fpassword" placeholder="Password">
+            <br>
+            <input type="submit" id="fsubmit" name="fsubmit" value="SUBMIT">
+        </form>
+        <button type="button" onclick="displayController(0)">Create</button>
+    </section>
+    <section id="mainpageSection">
+        <h1>Main Page</h1>
+        <section style="flex-direction: column; width: 99vw;">
+            <div class="inner" style="flex-direction: row; height: 300px;">
+                <aside style="flex-direction: column;">
+                    <div>Category</div>
+                    <a onclick="filter('Storybook')">Storybook</a>
+                    <a onclick="filter('Contemporary Fiction')">Contemporary Fiction</a>
+                    <a onclick="filter('Picture Book')">Picture Book</a>
+                    <a onclick="filter('History')">History</a>
+                </aside>
+                <div id="mainShowBookWrapper" style="display: block; width: 100vw;">
+                    <h3>All Books</h3>
+                    <a href="index.html" style="float: right; clear: right;">sort by price</a>
+                    <div id="mainShowBookArea" style="clear: right">
+                        <!-- many books yeah -->
+                    </div>
+                </div>
+            </div>
+            <!-- <button onclick="testing()">testing1</button> -->
+        </section>
+    </section>
+
+    <section id="specificbookSection">
+        <!-- info displayed by javascript getting php requests -->
+    </section>
+
+    <section id="myshoppingcartSection">
+        <section style="flex-direction: column; width: 99vw;">
+            <div class="inner" style="flex-direction: row; height: min-content;">
+                <div id="mainShowBookWrapper" style="display: block; width: 100vw;">
+                    <h3> My Shopping Cart </h3>
+                    <div id="insideShoppingCart" style="display: block;">
+                        <!-- <button type="button"> Sign in</button> -->
+                    </div>
+                    <!-- testing -->
+                    <button onclick="testing2()">testing2</button>
+                </div>
+            </div>
+            <div id="totalPrice"></div>
+        </section>
+        <button type="submit" onclick="displayController(2)">Back</button>
+        <form name="checkoutForm" action="checkoutPage.php" method="post" style="float: left;">
+            <input type="submit" id="checkoutbutt" name="checkoutbutt" value="Checkout">
+        </form>
+        
+    </section>
+
+    
+    <!-- <script src="main.js" language="Javascript" type="text/javascript"></script> -->
+    <script>
+        mainBodySections = []
+        function initVars(){
+            var createACSection = document.getElementById("createACSection");
+            var loginSection = document.getElementById("loginSection");
+            var mainpageSection = document.getElementById("mainpageSection");
+            var specificbookSection = document.getElementById("specificbookSection");
+            var myshoppingcartSection = document.getElementById("myshoppingcartSection");
+            mainBodySections = [createACSection, loginSection, mainpageSection, specificbookSection, myshoppingcartSection]
+        }
+        function passAmount_ID(id){
+            var ordernum = document.getElementById("ordernum");
+            amount = ordernum.value;
+            var xmlhttp = new XMLHttpRequest();   
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log(xmlhttp.responseText);
+                }
+            }
+            xmlhttp.open("POST", "saveCartIdToSection.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("ordernum="+amount+"&bookidsubmit="+id);
+        }
+
+        function displayController(elementNumToShow){
+            var arrayLength = mainBodySections.length;
+            for (var i = 0; i < arrayLength; i++) {
+                if (i==elementNumToShow){
+                    mainBodySections[i].style.display = 'block';
+                }
+                else{
+                    mainBodySections[i].style.display = 'none';
+                }
+            }
+        }
+        function showAllCarts(){
+            var xmlhttp = new XMLHttpRequest();   
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var insideShoppingCart = document.getElementById("insideShoppingCart");
+                    insideShoppingCart.innerHTML = xmlhttp.responseText;
+                    console.log('getting from show all carts:\n',xmlhttp.responseText);
+                }
+            }
+            xmlhttp.open("POST", "showSectionCart.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("showCart=all");
+        }
+        function deleteItem(DesiredCartID){
+            var DeleteCartID = "DesiredCartID-"+DesiredCartID;
+            console.log('DeleteCartID = ',DeleteCartID);
+            removeElement(DeleteCartID);
+            // remove the cart from session
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log('this is a return msg from delete: ',xmlhttp.responseText);
+                    console.log('update the cost now');
+                    printTotalCost();
+                    console.log('returned the cost now');
+                }
+            }
+            xmlhttp.open("POST", "showSectionCart.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=delete&deleteid="+DesiredCartID);
+            // update the price
+            printTotalCost();
+            showAllCarts();
+        }
+        function printTotalCost(){
+            var xmlhttp2 = new XMLHttpRequest();   
+            xmlhttp2.onreadystatechange = function () {
+                if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+                    var totalPrice = document.getElementById("totalPrice");
+                    totalPrice.innerHTML = xmlhttp2.responseText;
+                }
+            }
+            xmlhttp2.open("POST", "showSectionCart.php", true);
+            xmlhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp2.send("action=getcost");
+        }
+        // credit: https://stackoverflow.com/questions/3387427/remove-element-by-id
+        function removeElement(id) {
+            var elem = document.getElementById(id);
+            elem.parentNode.removeChild(elem);
+        }
+        function testing2(){
+            // show session array
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log('testing: ',xmlhttp.responseText);
+                }
+            }
+            xmlhttp.open("POST", "showSectionCart.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=testing");
+            // see the response msg after deleting
+            var xmlhttp2 = new XMLHttpRequest();   
+            xmlhttp2.onreadystatechange = function () {
+                if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+                    console.log('what even is this bug: ',xmlhttp2.responseText);
+                }
+            }
+            xmlhttp2.open("POST", "showSectionCart.php", true);
+            xmlhttp2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp2.send("showCart=all");
+        }
+        function detailedShown(bookId){
+            console.log('clicked on',bookId);
+            var xmlhttp = new XMLHttpRequest();
+                
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var specificbookSection = document.getElementById("specificbookSection");
+                    specificbookSection.innerHTML = xmlhttp.responseText;
+                    console.log("this is what is get::::",xmlhttp.responseText);
+                }
+            }
+            xmlhttp.open("POST", "bookxbackup.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=specific&bookid="+bookId);
+        }
+        function filter(type){
+            var xmlhttp = new XMLHttpRequest();
+                
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var mainShowBookArea = document.getElementById("mainShowBookArea");
+                mainShowBookArea.innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("POST", "showbook.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("show=filter&type="+type);
+        }
+        function showAll() {
+            var xmlhttp = new XMLHttpRequest();
+                
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var mainShowBookArea = document.getElementById("mainShowBookArea");
+                mainShowBookArea.innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("POST", "showbook.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("show=all");
+        }
+
+        function checkLogin(){
+            // check login status
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var loginCheckArea = document.getElementById("loginCheckArea");
+                    console.log(xmlhttp.responseText);
+                    loginCheckArea.innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("POST", "checkLoginStatus.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=checklogin");
+        }
+
+        function testing(){
+            // show session array
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log('testing: ',xmlhttp.responseText);
+                }
+            }
+            xmlhttp.open("POST", "verifyLogin.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=testing");
+        }
+        window.onload = function() {
+            initVars();
+            showAllCarts();
+            console.log('fired');
+            displayController(2); //show only the login page
+            checkLogin();
+            showAll();
+        }
+    </script>
 </body>
 </html>
-
-<!-- /course/home/c3322b/public_html/Project/chwoo -->
-<!-- https://i7.cs.hku.hk/~c3322b/Project/chwoo/index.html -->

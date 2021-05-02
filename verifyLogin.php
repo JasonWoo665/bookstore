@@ -41,7 +41,7 @@ if (isset($_POST['fsubmit'])){
         // save the result to session
         $_SESSION['UserId'] = $_POST['fname'];
         //redirect to main page
-        header("location: main.html");
+        header("location: index.html");
     }
     else{
         // fail to login

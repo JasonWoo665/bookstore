@@ -2,5 +2,5 @@
     session_start();
     session_unset();
     echo "<p> Logging out</p>";
-    header("refresh:3;url=main.html");
+    header("refresh:3;url=index.html");
 ?>
