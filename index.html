@@ -8,52 +8,31 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="main.js"></script>
 </head>
-<style>
-    * {
-        border-style: solid;
-        background-color: blanchedalmond;
-        padding: 0;
-        margin: 0;
-    }
-    section, nav, div, aside {
-        display: flex;
-        align-content: stretch;
-    }
-    #mainShowBookArea{
-        /* display: block; */
-        flex-wrap: wrap;
-        align-content: stretch;
-    }
-    .books{
-        width: 20%;
-    }
-    .books img{
-        max-width: 100%;
-        display: block;
-    }
-</style>
 <body>
     <!-- the login page template -->
     <section id="navbarOFMINE">
         <nav style="height: 100px; justify-content: center; flex-direction: column;">
-            <input type="text" id='kw' placeholder="Keyword(s)" style="float: left; width: 70vw;">
-            <input type="submit" name="searching" id="searching" value="Search" onclick="searchResults()">
+            <div id="searchingBar">
+                <input type="text" id='kw' placeholder="Keyword(s)" style="float: left; width: 70vw;">
+                <input type="submit" name="searching" id="searching" value="Search" onclick="searchResults()">
+            </div>
             <div class="loginOptions" style="flex-direction: row; justify-content: flex-end;">
                 <div id="loginCheckArea">
                     
                 </div>
                 <button type="submit" onclick="displayController(4)">Cart</button>
+                <span id='cartnums'>0</span>
             </div>
-            <a href="index.html">home</a>
+            <!-- <a href="index.html">home</a> -->
         </nav>
     </section>
     <section id="createACSection">
-        <h1>Create Account NOW</h1>
+        <h1>US - BOOKSHOP - CREATE ACCOUNT</h1>
         <form name="createForm" action="create.php" method="post" onsubmit="return validateCForm()">
-            <label for="cname">Username</label>
+            <!-- <label for="cname">Username</label> -->
             <input type="text" id="cname" name="cname" placeholder="Desired Username">
             <br>
-            <label for="cpassword">Password</label>
+            <!-- <label for="cpassword">Password</label> -->
             <input type="password" id="cpassword" name="cpassword" placeholder="Desired Password">
             <br>
             <input type="submit" id="csubmit" name="csubmit" value="SUBMIT">
@@ -61,12 +40,12 @@
         <button type="button" onclick="displayController(1)">Back</button>
     </section>
     <section id="loginSection">
-        <h1>Login NOW</h1>
+        <h1>US - BOOKSHOP - LOGIN</h1>
         <form name="loginForm" action="verifyLogin.php" method="post" onsubmit="return validateForm()">
-            <label for="fname">Username</label>
+            <!-- <label for="fname">Username</label> -->
             <input type="text" id="fname" name="fname" placeholder="Username">
             <br>
-            <label for="fpassword">Password</label>
+            <!-- <label for="fpassword">Password</label> -->
             <input type="password" id="fpassword" name="fpassword" placeholder="Password">
             <br>
             <input type="submit" id="fsubmit" name="fsubmit" value="SUBMIT">
@@ -74,8 +53,8 @@
         <button type="button" onclick="displayController(0)">Create</button>
     </section>
     <section id="mainpageSection">
-        <h1>Main Page</h1>
-        <section style="flex-direction: column; width: 99vw;">
+        <!-- <h1>Main Page</h1> -->
+        <section style="flex-direction: column;">
             <div class="inner" style="flex-direction: row; height: 300px;">
                 <aside style="flex-direction: column;">
                     <div>Category</div>
@@ -84,10 +63,10 @@
                     <a onclick="filter('Picture Book')">Picture Book</a>
                     <a onclick="filter('History')">History</a>
                 </aside>
-                <div id="mainShowBookWrapper" style="display: block; width: 100vw;">
-                    <h3 id="allbookstag">All Books</h3>
-                    <a onclick="sortByPrice()" style="float: right; clear: right;">sort by price</a>
-                    <div id="mainShowBookArea" style="clear: right">
+                <div id="mainShowBookWrapper" style="display: block;">
+                    <h1 id="allbookstag">All Books</h1>
+                    <a onclick="sortByPrice()" id="sortbyprice">sort by price</a>
+                    <div id="mainShowBookArea">
                         <!-- many books yeah -->
                     </div>
                 </div>
@@ -101,15 +80,15 @@
     </section>
 
     <section id="myshoppingcartSection">
-        <section style="flex-direction: column; width: 99vw;">
+        <section style="flex-direction: column;">
             <div class="inner" style="flex-direction: row; height: min-content;">
-                <div id="mainShowBookWrapper" style="display: block; width: 100vw;">
+                <div id="mainShowBookWrapper" style="display: block;">
                     <h3> My Shopping Cart </h3>
                     <div id="insideShoppingCart" style="display: block;">
                         <!-- <button type="button"> Sign in</button> -->
                     </div>
                     <!-- testing -->
-                    <button onclick="testing2()">testing2</button>
+                    <!-- <button onclick="testing2()">testing2</button> -->
                 </div>
             </div>
             <div id="totalPrice"></div>
@@ -148,10 +127,11 @@
         }
 
         function displayController(elementNumToShow){
+            getcartnums();
             var arrayLength = mainBodySections.length;
             for (var i = 0; i < arrayLength; i++) {
                 if (i==elementNumToShow){
-                    mainBodySections[i].style.display = 'block';
+                    mainBodySections[i].style.display = 'flex';
                 }
                 else{
                     mainBodySections[i].style.display = 'none';
@@ -159,6 +139,7 @@
             }
         }
         function showAllCarts(){
+            getcartnums();
             var xmlhttp = new XMLHttpRequest();   
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -172,6 +153,7 @@
             xmlhttp.send("showCart=all");
         }
         function deleteItem(DesiredCartID){
+            getcartnums();
             var DeleteCartID = "DesiredCartID-"+DesiredCartID;
             console.log('DeleteCartID = ',DeleteCartID);
             removeElement(DeleteCartID);
@@ -197,7 +179,7 @@
             xmlhttp2.onreadystatechange = function () {
                 if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
                     var totalPrice = document.getElementById("totalPrice");
-                    totalPrice.innerHTML = xmlhttp2.responseText;
+                    totalPrice.innerHTML = "Total Price:"+ xmlhttp2.responseText;
                 }
             }
             xmlhttp2.open("POST", "showSectionCart.php", true);
@@ -336,14 +318,29 @@
             xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xmlhttp.send("action=testing");
         }
+        function getcartnums(){
+            // show session array
+            var cartnums = document.getElementById("cartnums");
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    cartnums.innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("POST", "verifyLogin.php", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("action=testing");
+        }
         window.onload = function() {
             initVars();
             showAllCarts();
+            getcartnums();
 
             const queryString = window.location.search;
             const urlParams = new URLSearchParams(queryString);
             const login = urlParams.get('login');
             const cart = urlParams.get('cart');
+            const create = urlParams.get('create');
 
             console.log('fired');
             if (login){
@@ -351,6 +348,9 @@
             }
             else if (cart){
                 displayController(4); //show login page
+            }
+            else if (create){
+                displayController(0); //show login page
             }
             else{
                 displayController(2); //show main page

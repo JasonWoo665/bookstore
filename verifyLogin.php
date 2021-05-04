@@ -79,7 +79,13 @@ if (isset($_POST['fsubmit'])){
         header("refresh:3;url=index.html");
     }
 } else if ($_POST['action'] == 'testing'){
-    print var_dump(session_id()).'with value'.var_dump($_SESSION);
+    if (!$_SESSION['cartID']){
+        $size = 0;
+    }
+    else{
+        $size=  sizeof($_SESSION['cartID']);
+    }
+    print $size;
 }
 
 function authenticate() {

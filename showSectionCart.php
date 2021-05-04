@@ -32,8 +32,7 @@
                 $returnString .= "<div id='DesiredCartID-".$DesiredCartID."'>
                                     <p class='BookName'> Book Name: ".$BookName."</p> 
                                     <p class='Quan'> Quantity: ".$Quantity."</p>
-                                    <p class='wtf'> this is from: ".$count."</p> 
-                                    <button onclick='deleteItem(".$DesiredCartID.")'>Delete</button>
+                                    <button id='deletebutt' onclick='deleteItem(".$DesiredCartID.")'>Delete</button>
                                     </div>
                                 ";
             }
@@ -96,6 +95,6 @@
             mysqli_free_result($result);
         }
         mysqli_close($conn); 
-        print $dubugger.'='.$sum;
+        print '$'.$sum;
     } 
 ?>

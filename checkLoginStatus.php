@@ -3,7 +3,7 @@
     if (isset($_POST['action'])){
         if (!$_SESSION['UserId'] || $_SESSION['UserId']==''){
             print "
-            <button type='button' onclick='displayController(1)'>Sign in</button>
+            <button type='button' onclick='displayController(1)'>Sign&nbsp;in</button>
             <button type='button' onclick='displayController(0)'>Register</button>
             ";
         }

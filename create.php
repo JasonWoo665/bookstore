@@ -11,7 +11,7 @@ if (isset($_POST['csubmit'])){
             <?php echo 'Account created! Welcome' ?>
         </h1>
         <?php
-        header("refresh:3;url=index.html");
+        header("refresh:3;url=index.html?login=true");
     }
     else{ //account existed already
         //redirect to main page after 3sec
@@ -20,7 +20,7 @@ if (isset($_POST['csubmit'])){
             <?php echo 'Account already existed' ?>
         </h1>
         <?php
-        header("refresh:3;url=index.html");
+        header("refresh:3;url=index.html?create=true");
     }
 }
 else if ($_POST['action'] == 'fastcsubmit'){

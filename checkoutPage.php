@@ -9,9 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        *{
-            border-style: solid;
+        #yorder{
+            border-top: solid;
+            border-color: grey;
         }
+
     </style>
     <script src="main.js"></script>
 </head>
@@ -33,7 +35,7 @@
                     <p>Please Checkout Below&nbsp;&nbsp;&nbsp;&nbsp;or &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='index.html?login=yes'>Sign In </a></p>
                     <h1>Creatae Account: </h1>
                     <label for='fcname'>Username</label>
-                    <input type='text' id='fcname' name='fcname' placeholder='Desired Username' onblur='moveoutCheckDuplicate(event)'><span id='redWarningSpan' style='color: red'>Username Duplicated</span>
+                    <input type='text' id='fcname' name='fcname' placeholder='Desired Username' onblur='moveoutCheckDuplicate(event)'><span id='redWarningSpan' style='color: red; visibility: hidden;'>Username Duplicated</span>
                     <br>
                     <label for='fcpassword'>Password</label>
                     <input type='password' id='fcpassword' name='fcpassword' placeholder='Desired Password'>
@@ -67,9 +69,9 @@
             <input type="text" id="postcode" name="postcode" placeholder="Required">
             <br>   
     
-            <p>Your order <a href="index.html?cart=yes">(change)</a> </p>
+            <p id="yorder">Your order <a href="index.html?cart=yes">(change)</a> </p>
             <br> <br>
-            <p>Free Standard Shipping</p>
+            <p><b> Free Standard Shipping</b></p>
 
             <?php
                 $sum=0;
@@ -108,7 +110,7 @@
                 }
                 mysqli_close($conn); 
                 echo "<br> <br>";
-                echo "<p>Total Price: HK$ ".$sum."</p>";  
+                echo "<p><b>Total Price: HK$ ".$sum."</b></p>";  
             ?>
 
             <input type="submit" id="ADcsubmit" name="ADcsubmit" value="Comfirm">

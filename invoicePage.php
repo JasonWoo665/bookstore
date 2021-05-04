@@ -10,7 +10,7 @@
     <title>Document</title>
     <style>
         *{
-            border-style: solid;
+            
         }
     </style>
 </head>
@@ -98,7 +98,7 @@
             echo "<br>";
             echo "<p>Total Price: HK$ ".$sum."</p>";  
         ?>
-        <p style="text-align: center;">Thanks for ordering.  Your books will be delivered within 7 working days.</p>
+        <p style="text-align: center; border-top: solid; border-color: grey; padding-top: 10px">Thanks for ordering.  Your books will be delivered within 7 working days.</p>
         <form name="invoiceForm" action="index.html" method="post" style="display: flex; justify-content: center;">
             <input type="submit" id="ADcsubmit" name="ADcsubmit" value="OK">
         </form>

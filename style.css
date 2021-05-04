@@ -1,22 +1,318 @@
 * {
-    border-style: solid;
-    background-color: blanchedalmond;
+    /* border-style: solid; */
+    /* background-color: blanchedalmond; */
     padding: 0;
     margin: 0;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+button{
+    background-color: rgb(63, 134, 241);
+    color: white;
+    border-radius: 7px;
+    padding: 3px 10px 3px 10px;
+    width: min-content;
+    cursor: pointer;
+}
+button:hover{
+    background-color: white;
+    color: black;
+    transition-duration: 0.5s;
+}
+#csubmit{
+    background-color: rgb(63, 134, 241);
+    color: white;
+    border-radius: 7px;
+    padding: 3px 10px 3px 10px;
+}
+#csubmit:hover{
+    background-color: white;
+    color: black;
+    transition-duration: 0.5s;
 }
 section, nav, div, aside {
     display: flex;
     align-content: stretch;
+}
+nav{
+    width: 100%;
+    background-color: lightcoral;
+    padding-bottom: 5vh;
+    padding-top: 5vh;
+}
+#searchingBar{
+    align-items: center;
+    justify-content: center;
+}
+#navbarOFMINE{
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+#kw{
+    border-style: solid;
+    border-color: gray;
+    font-size: 17px;
+    border-radius: 5px;
+    background-color: white;
+    margin: 10px;
+    padding: 5px;
 }
 #mainShowBookArea{
     /* display: block; */
     flex-wrap: wrap;
     align-content: stretch;
 }
+#searching{
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 17px;
+    width: min-content;
+    height: min-content;
+    align-self: center;
+    cursor: pointer;
+    border-style: solid;
+    background-color: white;
+    font-weight: 700;
+}
+#searching:hover{
+    background-color: rgb(141, 140, 140);
+    color: white;
+    transition-duration: 0.3s;
+    font-weight: 700;
+}
+/* create ac section */
+.loginOptions button{
+    background-color: rgb(63, 134, 241);
+    color: white;    
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 15px;
+}
+#loginCheckArea button{
+    background-color: rgb(63, 134, 241);
+    color: white;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#loginCheckArea button:hover{
+    background-color: rgb(141, 140, 140);
+    color: white;
+    transition-duration: 0.5s;
+}
+.loginOptions button:hover{
+    background-color: white;
+    color: black;
+    transition-duration: 0.5s;
+}
+
+/* first page */
+#createACSection{
+    display: flex;
+    padding: 35px;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#createACSection h1{
+    margin-bottom: 20px;
+    display: flex;
+}
+#createACSection form {
+    display: flex;
+    flex-direction: column;
+    
+}
+#createACSection form > *{
+    width: 100%;
+    border-radius: 7px;
+    border-color: lightblue;
+    padding: 3px;
+}
+#createACSection #csubmit{
+    margin-bottom: 15px;
+    cursor: pointer;
+    width: min-content;
+}
+#createACSection button{
+    cursor: pointer;
+    border-radius: 7px;
+    border-color: lightblue;
+    width: min-content;
+}
+/* login page */
+#loginSection{
+    display: flex;
+    padding: 35px;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#loginSection h1{
+    margin-bottom: 20px;
+    display: flex;
+}
+#loginSection form {
+    display: flex;
+    flex-direction: column;
+    
+}
+#loginSection form > *{
+    width: 100%;
+    border-radius: 7px;
+    border-color: lightblue;
+    padding: 3px;
+}
+#loginSection #fsubmit{
+    cursor: pointer;
+    width: min-content;
+    margin-bottom: 10px;
+}
+#loginSection #fsubmit{
+    background-color: rgb(63, 134, 241);
+    color: white;
+    border-radius: 7px;
+    padding: 3px 10px 3px 10px;
+    width: min-content;
+    cursor: pointer;
+}
+#loginSection #fsubmit:hover{
+    background-color: white;
+    color: black;
+    transition-duration: 0.5s;
+}
+#loginSection button{
+    cursor: pointer;
+    border-radius: 7px;
+    border-color: lightblue;
+    width: min-content;
+}
+/* main page */
+#mainpageSection{
+    flex-direction: column;
+    margin: 25px;
+}
+#mainpageSection aside div{
+    font-size: large;
+    font-weight: 900;
+}
+#mainpageSection aside > *{
+    margin-bottom: 15px;
+}
+#mainpageSection aside > a{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+#allbookstag{
+    font-weight: 900;
+}
+#sortbyprice{
+    float: right;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* myshoppingcartSection */
+#myshoppingcartSection{
+    margin: 25px;
+    flex-direction: column;
+}
+#myshoppingcartSection button{
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+#myshoppingcartSection #deletebutt{
+    margin-bottom: 15px;
+    border-radius: 0px;
+    color: black;
+    background-color: gray;
+}
+#myshoppingcartSection #deletebutt{
+    color: white;
+    background-color: rgb(77, 77, 77);
+}
+
+#checkoutbutt{
+    background-color: rgb(63, 134, 241);
+    color: white;
+    border-radius: 7px;
+    padding: 3px 10px 3px 10px;
+    width: min-content;
+    cursor: pointer;
+}
+#checkoutbutt:hover{
+    background-color: white;
+    color: black;
+    transition-duration: 0.5s;
+}
+.bookName{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 700;
+}
 .books{
     width: 20%;
+    margin: 0% 3% 5% 0%;
 }
 .books img{
     max-width: 100%;
     display: block;
+}
+
+section#specificbookSection {
+    flex-direction: column;
+    margin: 25px;
+}
+/* section#specificbookSection a{
+    float: right;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+} */
+#insideShoppingCart > *{
+    display: flex;
+    flex-direction:column;
+}
+#insideShoppingCart > *{
+    border-bottom: solid;
+}
+#mainShowBookWrapper h3{
+    font-size: large;
+    margin-top: 25px;
+}
+#orderspan{
+    width: min-content;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+#ordernum{
+    width: 20%;
+    border-radius: -6px;
+    border-style: double;
+    margin: 10px 0px 15px 0px;
+}
+.inner{
+    display: flex;
+}
+aside{
+    margin-right: 25px;
+}
+@media (max-width: 680px) {
+    #mainShowBookArea{
+        display: block;
+        width: 90vw;
+    }
+    .inner{
+        display: block;
+    }
+    .books{
+        width: 100%;
+    }
 }

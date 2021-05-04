@@ -50,8 +50,9 @@
             Price: ".$Price."
         </p>
     </div>
+    <span id='orderspan'>Order: </span>
     <input type='text' id='ordernum' name='ordernum'>
-    <button type='button' onclick='displayController(4);passAmount_ID(".$id.");showAllCarts();printTotalCost();'>Add to Cart</button>
+    <button type='button' onclick='displayController(4);passAmount_ID(".$id.");showAllCarts();printTotalCost();'>Add&nbsp;to&nbsp;Cart</button>
     
     ";
 ?>
