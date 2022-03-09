@@ -45,7 +45,7 @@ function checkFCreate() {
     if (isset($_POST['cname'])) {
         //check if database already have it
         // open the database
-        $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+        $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
         $query = "SELECT * FROM login WHERE UserId = '$cname'";
         $result = mysqli_query($conn, $query) or die ('Failed to query '.mysqli_error($conn));
         
@@ -70,7 +70,7 @@ function checkCreate() {
     if (isset($_POST['cname']) && isset($_POST['cpassword'])) {
         //check if database already have it
         // open the database
-        $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+        $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
         $query = "SELECT * FROM login WHERE UserId = '$cname'";
         $result = mysqli_query($conn, $query) or die ('Failed to query '.mysqli_error($conn));
         

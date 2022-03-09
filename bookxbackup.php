@@ -5,7 +5,7 @@
 <?php
     $id = (int)$_POST['bookid'];
     // get data from sql of the specific book
-    $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+    $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
     $query = "SELECT * FROM book WHERE BookId = '$id'";
     $result = mysqli_query($conn, $query) or die ('Failed to query '.mysqli_error($conn));
     if (mysqli_num_rows($result) > 0) {

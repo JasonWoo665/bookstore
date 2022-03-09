@@ -76,7 +76,7 @@
             <?php
                 $sum=0;
                 $dubugger = '';
-                $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+                $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
                 foreach ($_SESSION['cartID'] as $key => $value){
                     // select one cart of the user
                     $DesiredCartID = $value;

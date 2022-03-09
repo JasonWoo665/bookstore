@@ -48,7 +48,7 @@
         <?php
             $sum=0;
             $dubugger = '';
-            $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+            $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
             foreach ($_SESSION['cartID'] as $key => $value){
                 // select one cart of the user
                 $DesiredCartID = $value;
@@ -80,7 +80,7 @@
                 if (($key = array_search($del_val, $_SESSION['cartID'])) !== false) {
                     unset($_SESSION['cartID'][$key]);
                     // also remove it from database
-                    $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+                    $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
                     if ($_SESSION['UserId'] && $_SESSION['UserId']!=''){
                         $query = "DELETE FROM cart WHERE CartId='".$del_val."'";
                     }

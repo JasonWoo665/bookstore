@@ -4,7 +4,7 @@
         // store the desired amount into SQL
         $ordernum = $_POST['ordernum'];
         $bookidsubmit = $_POST['bookidsubmit'];
-        $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+        $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
         // insert the data first
         if ($_SESSION['UserId'] && $_SESSION['UserId']!=''){
             $username = $_SESSION['UserId'];

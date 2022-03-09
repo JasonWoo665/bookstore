@@ -23,7 +23,7 @@ if (isset($_POST['fsubmit'])){
         $CartIdLists = array();
         // remove temp carts given to session if any
         if ($_SESSION['cartID'] && $_SESSION['cartID']!=''){
-            $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+            $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
             foreach ($_SESSION['cartID'] as $key => $value){
                 $del_val = $value;
                 if (($key = array_search($del_val, $_SESSION['cartID'])) !== false) {
@@ -98,7 +98,7 @@ function authenticate() {
     if (isset($_POST['fname']) && isset($_POST['fpassword'])) {
         //check if database already have it
         // open the database
-        $conn=mysqli_connect('sophia.cs.hku.hk', 'chwoo', 'jasonxd0211', 'chwoo') or die ('Error! '.mysqli_connect_error($conn));
+        $conn=mysqli_connect('sophia.cs.hku.hk', 'username', 'password', 'username') or die ('Error! '.mysqli_connect_error($conn));
         $query = "SELECT * FROM login WHERE UserId = '$fname'";
         $result = mysqli_query($conn, $query) or die ('Failed to query '.mysqli_error($conn));
         
