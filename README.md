@@ -3,6 +3,10 @@
 This is a project from a course called COMP3322 Modern Technologies in World Wide Web.  
 This project is a simple online bookstore website for customers to purchase books, simulating a real world bookstore.  Register, login and payment interface are implmented.  
 
+## Where is the deployed project?
+As this is a project deployed inside a virtual machine allocated by HKU a year ago
+the url was gone when the virtual machine was reallocated
+
 ## Technologies used
 
 HTML, CSS, JavaScript, jQuery, MySQL, AJAX, and PHP are used as the client and server side technologies.
